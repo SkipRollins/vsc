@@ -1,4 +1,4 @@
-package com.github.skiprollins.vsc
+package com.github.skiprollins.vsc.ui
 
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -6,6 +6,7 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.github.skiprollins.vsc.R
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,6 +14,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
+
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.main_container, CartFragment())
+            .commit()
 
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
