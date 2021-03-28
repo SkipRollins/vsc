@@ -4,10 +4,7 @@ import android.content.Context
 import com.github.skiprollins.vsc.BuildConfig
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import okhttp3.Interceptor
-import okhttp3.MediaType
-import okhttp3.Response
-import okhttp3.ResponseBody
+import okhttp3.*
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -32,6 +29,7 @@ class MockApiInterceptor(
     private fun buildAllProductResponse(chain: Interceptor.Chain): Response {
         val body = ResponseBody.create(MediaType.parse("application/json"), getRawProductList())
         val response = Response.Builder()
+            .protocol(Protocol.HTTP_1_1)
             .body(body)
             .request(chain.request())
             .message("OK")
@@ -52,6 +50,7 @@ class MockApiInterceptor(
 
                 val body = ResponseBody.create(MediaType.parse("application/json"), json)
                 val response = Response.Builder()
+                    .protocol(Protocol.HTTP_1_1)
                     .body(body)
                     .request(chain.request())
                     .message("OK")
@@ -62,6 +61,7 @@ class MockApiInterceptor(
 
             } else {
                 val response = Response.Builder()
+                    .protocol(Protocol.HTTP_1_1)
                     .request(chain.request())
                     .message("Not Found")
                     .code(404)

@@ -1,7 +1,6 @@
 package com.github.skiprollins.vsc
 
 import android.app.Application
-import android.content.Context
 import com.github.skiprollins.vsc.di.*
 import timber.log.Timber
 
@@ -25,6 +24,8 @@ class BaseApp: Application() {
             .applicationModule(ApplicationModule(this))
             .gsonModule(GsonModule())
             .networkModule(NetworkModule())
+            .serviceModule(ServiceModule())
+            .contractModule(ContractModule())
             .build()
     }
 

@@ -18,7 +18,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField "String", "MOCK_API", '"https://10.42.0.1:3000/api"'
+        buildConfigField "String", "MOCK_API", '"https://10.42.0.1:3000/api/"'
         buildConfigField "boolean", "USE_MOCK_API", "true"
     }
 

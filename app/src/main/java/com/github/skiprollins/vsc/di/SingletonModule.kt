@@ -3,7 +3,12 @@ package com.github.skiprollins.vsc.di
 import android.content.Context
 import com.github.skiprollins.vsc.BuildConfig
 import com.github.skiprollins.vsc.network.InventoryApi
+import com.github.skiprollins.vsc.network.InventoryService
 import com.github.skiprollins.vsc.network.MockApiInterceptor
+import com.github.skiprollins.vsc.ui.CartContract
+import com.github.skiprollins.vsc.ui.CartViewModel
+import com.github.skiprollins.vsc.util.SchedulerProvider
+import com.github.skiprollins.vsc.util.SchedulerProviderImpl
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -82,4 +87,33 @@ class NetworkModule {
         retrofit: Retrofit
     ): InventoryApi =
         retrofit.create(InventoryApi::class.java)
+}
+
+@Module
+class ServiceModule {
+    
+    @Provides
+    @Singleton
+    fun providesSchedulerProvider(): SchedulerProvider =
+        SchedulerProviderImpl()
+
+    @Provides
+    @Singleton
+    fun providesInventoryService(
+        api: InventoryApi,
+        schedulers: SchedulerProvider
+    ): InventoryService =
+        InventoryService(api, schedulers)
+}
+
+@Module
+class ContractModule {
+
+    @Provides
+    @Singleton
+    fun providesCartContract(
+        service: InventoryService,
+        schedulers: SchedulerProvider
+    ): CartContract =
+        CartViewModel(service, schedulers)
 }
