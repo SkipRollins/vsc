@@ -21,15 +21,16 @@ class CartAdapter(
         notifyDataSetChanged()
     }
 
-    fun addItem(product: Product) {
+    fun addItem(product: Product): Int {
         items.add(product)
-        notifyDataSetChanged()
+        notifyItemInserted(items.size - 1)
+        return items.size - 1
     }
 
-    fun removeItem(position: Int) {
+    private fun removeItem(position: Int) {
         if (position >= 0 || position < items.size) {
             items.removeAt(position)
-            notifyDataSetChanged()
+            notifyItemRemoved(position)
         }
     }
 
@@ -38,7 +39,14 @@ class CartAdapter(
     }
 
     override fun onBindViewHolder(holder: CartItemViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(items[position]) {
+            val index = items.indexOfFirst { it === holder.product }
+            if (index >= 0) {
+                items.removeAt(index)
+                notifyItemRemoved(index)
+            }
+            true
+        }
     }
 
     override fun getItemCount(): Int = items.size
@@ -46,17 +54,21 @@ class CartAdapter(
 
 class CartItemViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
+    lateinit var product: Product
     val name: TextView = itemView.findViewById(R.id.cart_item_name)
     val price: TextView = itemView.findViewById(R.id.cart_item_price)
     val id: TextView = itemView.findViewById(R.id.cart_item_id)
     val qrCode: TextView = itemView.findViewById(R.id.cart_item_code)
     val image: TextView = itemView.findViewById(R.id.cart_item_image)
 
-    fun bind(product: Product) {
+    fun bind(product: Product, longClickListener: View.OnLongClickListener) {
+        this.product = product
         name.text = product.name
         price.text = product.price
         id.text = product.id
         qrCode.text = product.qrUrl
         image.text = product.thumbnail
+
+        itemView.setOnLongClickListener(longClickListener)
     }
 }

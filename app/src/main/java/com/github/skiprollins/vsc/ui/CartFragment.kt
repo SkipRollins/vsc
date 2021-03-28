@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.github.skiprollins.vsc.BaseApp
@@ -61,10 +63,38 @@ class CartFragment : Fragment() {
             add(viewModel.inventoryObservable.subscribe {
                 cartAdapter.setItems(it)
             })
+
+            add(viewModel.itemObservable.subscribe {
+                val insertIndex = cartAdapter.addItem(it)
+                cartList.scrollToPosition(insertIndex)
+            })
+
+            add(viewModel.errorObservable.subscribe { (error, payload) ->
+                when (error) {
+                    CartContract.Error.ITEM_NOT_FOUND -> handleItemNotFound(payload)
+                }
+            })
         }
     }
 
     private fun unsubscribeFromObservables() {
         subs.clear()
+    }
+
+    private fun handleItemNotFound(payload: Any?) {
+        if (payload is String && payload.toIntOrNull() != null) {
+            AlertDialog.Builder(this@CartFragment.requireContext())
+                .setTitle(R.string.error_item_not_found_title)
+                .setMessage(getString(R.string.error_item_not_found_message, payload))
+                .setPositiveButton(R.string.ok) { di, _ -> di.dismiss() }
+                .create()
+                .show()
+        }
+    }
+
+    private var counter: Int = 0
+    fun addItem() {
+        val id = "000${(counter++ % 4) + 1}"
+        viewModel.getItem(id)
     }
 }

@@ -6,7 +6,8 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="ok">OK</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="error_item_not_found_title">Not Found</string>
+    <string name="error_item_not_found_message">No item was found matching the id \"%s\"</string>
 </resources>

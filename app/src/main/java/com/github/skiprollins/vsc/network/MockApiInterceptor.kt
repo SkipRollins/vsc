@@ -60,8 +60,10 @@ class MockApiInterceptor(
                 return response
 
             } else {
+                val body = ResponseBody.create(MediaType.parse("text/plain"), "")
                 val response = Response.Builder()
                     .protocol(Protocol.HTTP_1_1)
+                    .body(body)
                     .request(chain.request())
                     .message("Not Found")
                     .code(404)

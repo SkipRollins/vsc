@@ -10,6 +10,8 @@ import com.github.skiprollins.vsc.R
 
 class MainActivity : AppCompatActivity() {
 
+    val cartFragment = CartFragment()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -17,12 +19,11 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.main_container, CartFragment())
+            .replace(R.id.main_container, cartFragment)
             .commit()
 
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            cartFragment.addItem()
         }
     }
 
