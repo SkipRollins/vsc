@@ -7,6 +7,9 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="add_item">Add Item</string>
+    <string name="product_id">Product ID</string>
 
     <string name="error_item_not_found_title">Not Found</string>
     <string name="error_item_not_found_message">No item was found matching the id \"%s\"</string>

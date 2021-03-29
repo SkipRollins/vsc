@@ -22,9 +22,7 @@ class MainActivity : AppCompatActivity() {
             .replace(R.id.main_container, cartFragment)
             .commit()
 
-        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-            cartFragment.addItem()
-        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
