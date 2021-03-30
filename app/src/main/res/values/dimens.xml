@@ -1,4 +1,7 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="dialog_margin">24dp</dimen>
+    
+    <dimen name="scanner_type_button_margin">50dp</dimen>
+    <dimen name="scanner_type_button_padding">15dp</dimen>
 </resources>
