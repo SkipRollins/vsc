@@ -47,7 +47,6 @@ class CartFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_cart, container, false)
         cartList = view.findViewById(R.id.recyclerview_cart)
 
-        cartList.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         cartList.adapter = cartAdapter
 
         return view

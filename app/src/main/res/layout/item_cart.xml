@@ -1,85 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="100dp"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    android:layout_margin="4dp"
+    app:strokeColor="@color/stroke_color"
+    app:strokeWidth="1dp">
 
-    <TextView
-        android:id="@+id/cart_item_name"
-        android:textColor="@color/black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginStart="15dp"
-        tools:text="Product Name"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        
+        <ImageView
+            android:id="@+id/cart_thumbnail"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:padding="5dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:src="@tools:sample/avatars"/>
+        
+        <TextView
+            style="@style/TextAppearance.MaterialComponents.Headline5"
+            android:id="@+id/cart_item_name"
+            android:textColor="@color/black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            tools:text="Product Name"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/cart_item_price"
+            app:layout_constraintStart_toEndOf="@id/cart_thumbnail"
+            app:layout_constraintEnd_toStartOf="@id/cart_item_remove"/>
 
-    <TextView
-        android:id="@+id/cart_item_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginStart="15dp"
-        tools:text="0001"
-        app:layout_constraintTop_toTopOf="@id/cart_item_name"
-        app:layout_constraintStart_toEndOf="@id/cart_item_name"/>
+        <TextView
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:id="@+id/cart_item_price"
+            android:textColor="@color/secondaryDarkColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            tools:text="$1.15"
+            app:layout_constraintTop_toBottomOf="@id/cart_item_name"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/cart_item_name"/>
 
-    <TextView
-        android:id="@+id/cart_item_price"
-        android:textColor="@color/black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="15dp"
-        android:layout_marginEnd="15dp"
-        tools:text="$1.15"
-        app:layout_constraintTop_toTopOf="@id/cart_item_name"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <ImageView
+            android:id="@+id/cart_item_remove"
+            android:layout_width="72dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_baseline_close_24"
+            android:padding="15dp"
+            app:tint="@color/secondaryDarkColor"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-    <TextView
-        android:id="@+id/cart_item_code_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:text="QR Code:"
-        android:layout_marginTop="5dp"
-        app:layout_constraintTop_toBottomOf="@id/cart_item_name"
-        app:layout_constraintStart_toStartOf="@id/cart_item_name" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/cart_item_code"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginStart="5dp"
-        tools:text="https://zxing.org/w/chart?cht=qr&amp;chs=350x350&amp;chld=L&amp;choe=UTF-8&amp;chl=0001"
-        app:layout_constraintTop_toTopOf="@id/cart_item_code_label"
-        app:layout_constraintStart_toEndOf="@id/cart_item_code_label"
-        app:layout_constraintEnd_toEndOf="@id/cart_item_price"/>
-
-    <TextView
-        android:id="@+id/cart_item_image_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:text="Image:"
-        android:layout_marginTop="5dp"
-        app:layout_constraintTop_toBottomOf="@id/cart_item_code"
-        app:layout_constraintStart_toStartOf="@id/cart_item_code_label" />
-
-    <TextView
-        android:id="@+id/cart_item_image"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginBottom="15dp"
-        tools:text="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/237/sparkles_2728.png"
-        app:layout_constraintTop_toTopOf="@id/cart_item_image_label"
-        app:layout_constraintStart_toEndOf="@id/cart_item_image_label"
-        app:layout_constraintEnd_toEndOf="@id/cart_item_price"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
