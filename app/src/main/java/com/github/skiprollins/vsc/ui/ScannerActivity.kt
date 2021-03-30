@@ -5,7 +5,10 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.view.KeyEvent
 import android.view.View
 import android.view.WindowManager
@@ -30,8 +33,11 @@ class ScannerActivity: AppCompatActivity() {
     companion object {
         @JvmStatic
         private val REQUIRED_PERMISSIONS = arrayOf(
-            Manifest.permission.CAMERA
+            Manifest.permission.CAMERA,
+            Manifest.permission.VIBRATE
         )
+
+        private const val VIBRATE_DURATION = 250L
 
         private const val PERMISSION_REQUEST_CODE = 10
 
@@ -45,7 +51,7 @@ class ScannerActivity: AppCompatActivity() {
             .setTitle(R.string.add_item)
             .setView(dialogCustomView)
             .setPositiveButton(R.string.add_item) { di, _ ->
-                returnCode(dialogEditText.text.toString())
+                returnCode(dialogEditText.text.toString(), false)
                 di.dismiss()
 
             }.setNegativeButton(R.string.cancel) { di, _ ->
@@ -90,15 +96,29 @@ class ScannerActivity: AppCompatActivity() {
         processing = false
     }
 
-    private fun returnCode(code: String) {
+    private fun returnCode(code: String, vibrate: Boolean) {
         if (!processing) {
             processing = true
+
+            if (vibrate) {
+                vibrate()
+            }
 
             setResult(Activity.RESULT_OK, Intent().apply {
                 putExtra(EXTRA_PRODUCT_ID, code)
             })
 
             finish()
+        }
+    }
+
+    private fun vibrate() {
+        (getSystemService(VIBRATOR_SERVICE) as? Vibrator)?.apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                vibrate(VibrationEffect.createOneShot(VIBRATE_DURATION, VibrationEffect.DEFAULT_AMPLITUDE))
+            } else {
+                vibrate(VIBRATE_DURATION)
+            }
         }
     }
 
@@ -127,7 +147,7 @@ class ScannerActivity: AppCompatActivity() {
                     .apply {
                         setAnalyzer(
                             ContextCompat.getMainExecutor(this@ScannerActivity),
-                            QrAnalyzer(this@ScannerActivity::returnCode)
+                            QrAnalyzer { returnCode(it, true) }
                         )
                     }
 
