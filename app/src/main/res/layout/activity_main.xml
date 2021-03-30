@@ -24,7 +24,21 @@
         android:id="@+id/main_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="64dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <TextView
+        style="@style/TextAppearance.MaterialComponents.Headline5"
+        android:id="@+id/subtotal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimaryVariant"
+        android:textColor="@color/white"
+        android:padding="15dp"
+        tools:text="Subtotal: $55.66"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"/>
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -32,6 +46,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
         android:src="@drawable/ic_baseline_add_24"
-        android:layout_gravity="bottom|end"/>
+        app:layout_anchor="@id/subtotal"
+        app:layout_anchorGravity="top|end"/>
+    
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

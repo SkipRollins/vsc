@@ -7,6 +7,7 @@ import android.view.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import com.github.skiprollins.vsc.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -17,7 +18,13 @@ class MainActivity : AppCompatActivity() {
         private const val REQUEST_PRODUCT_ID = 1
     }
 
-    val cartFragment = CartFragment()
+    private lateinit var subtotal: TextView
+
+    val cartFragment = CartFragment().also {
+        it.subtotalListener = {
+            subtotal.text = getString(R.string.subtotal, it)
+        }
+    }
 
 
 
@@ -26,6 +33,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
 
+        subtotal = findViewById(R.id.subtotal)
+        subtotal.text = getString(R.string.subtotal, 0.0)
+
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.main_container, cartFragment)
@@ -33,22 +43,6 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
             requestIdFromScanner()
-        }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
         }
     }
 

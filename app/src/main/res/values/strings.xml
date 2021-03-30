@@ -13,6 +13,8 @@
 
     <string name="type_product_id">Type Product ID</string>
 
+    <string name="subtotal">Subtotal: $%.2f</string>
+
     <string name="error_item_not_found_title">Not Found</string>
     <string name="error_item_not_found_message">No item was found matching the id \"%s\"</string>
 </resources>

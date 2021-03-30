@@ -17,22 +17,28 @@ class CartAdapter(
 
     private val items = ArrayList<Product>()
 
+    var subtotalListener: (Double) -> Unit = {}
+
     fun setItems(products: List<Product>) {
         items.clear()
         items.addAll(products)
         notifyDataSetChanged()
+        calculateSubtotal()
     }
 
     fun addItem(product: Product): Int {
         items.add(product)
         notifyItemInserted(items.size - 1)
+        calculateSubtotal()
         return items.size - 1
     }
 
-    private fun removeItem(position: Int) {
-        if (position >= 0 || position < items.size) {
-            items.removeAt(position)
-            notifyItemRemoved(position)
+    private fun removeItem(product: Product) {
+        val index = items.indexOfFirst { it === product }
+        if (index >= 0) {
+            items.removeAt(index)
+            notifyItemRemoved(index)
+            calculateSubtotal()
         }
     }
 
@@ -42,15 +48,15 @@ class CartAdapter(
 
     override fun onBindViewHolder(holder: CartItemViewHolder, position: Int) {
         holder.bind(context, items[position]) {
-            val index = items.indexOfFirst { it === holder.product }
-            if (index >= 0) {
-                items.removeAt(index)
-                notifyItemRemoved(index)
-            }
+            removeItem(holder.product)
         }
     }
 
     override fun getItemCount(): Int = items.size
+
+    private fun calculateSubtotal() {
+        subtotalListener(items.sumOf { it.priceValue })
+    }
 }
 
 class CartItemViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {

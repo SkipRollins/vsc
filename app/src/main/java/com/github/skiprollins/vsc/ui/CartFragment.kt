@@ -28,9 +28,13 @@ class CartFragment : Fragment() {
     @Inject lateinit var viewModel: CartContract
     private val subs = CompositeDisposable()
 
+    var subtotalListener: (Double) -> Unit = {}
+
     private lateinit var cartList: RecyclerView
     private val cartAdapter by lazy {
-        CartAdapter(requireContext())
+        CartAdapter(requireContext()).also {
+            it.subtotalListener = subtotalListener
+        }
     }
 
 
