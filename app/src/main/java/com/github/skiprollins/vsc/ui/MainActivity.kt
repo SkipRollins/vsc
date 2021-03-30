@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
+        supportActionBar?.title = getString(R.string.jungsoos_market)
 
         subtotal = findViewById(R.id.subtotal)
         subtotal.text = getString(R.string.subtotal, 0.0)

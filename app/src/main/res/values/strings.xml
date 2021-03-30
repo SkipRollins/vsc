@@ -17,4 +17,7 @@
 
     <string name="error_item_not_found_title">Not Found</string>
     <string name="error_item_not_found_message">No item was found matching the id \"%s\"</string>
+    
+    <string name="jungsoos_market">Jungsoo\'s Market</string>
+    <string name="scan_qr_code">Scan Product QR Code</string>
 </resources>

@@ -77,6 +77,7 @@ class ScannerActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scanner)
+        supportActionBar?.title = getString(R.string.scan_qr_code)
 
         viewFinder = findViewById(R.id.viewFinder)
 
