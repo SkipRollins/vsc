@@ -22,9 +22,19 @@ android {
         buildConfigField "boolean", "USE_MOCK_API", "true"
     }
 
+    signingConfigs {
+        release {
+            storeFile file('keystore.jks')
+            storePassword "vscpassword"
+            keyAlias "vsc"
+            keyPassword "vscaliaspassword"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

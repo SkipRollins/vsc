@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Virtual Shopping Cart</string>
+    <string name="app_name">@string/jungsoos_market</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
