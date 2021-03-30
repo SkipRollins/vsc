@@ -37,8 +37,6 @@ class CartFragment : Fragment() {
         }
     }
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (activity?.application as? BaseApp)?.appComponent?.inject(this)
